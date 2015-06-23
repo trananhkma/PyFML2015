@@ -4,57 +4,41 @@ def last_bin_digits(n):     # 3.1
     '''
     try:
         bin_num = bin(n)
-    except (TypeError, NameError):
-        print 'Input is not a number'
-    else:
         return bin_num[bin_num.rfind('1'):]
+    except TypeError:
+        print 'Input is not a number'
 
 def check_num(n):           # 3.2
-    '''
-    Return "this is negative number" if n < 0
-    Return "this is zero" if n = 0
-    Return "this is positive number" if n > 0
-    '''
-    try:
-        n < 0
-    except NameError:
-        print 'Input is not a number'
-    else:
-        if isinstance(n, (int, long, float, complex)):
-            if n < 0:
-                return "This is negative number"
-            elif n == 0:
-                return "This is zero"
-            else:
-                return "This is positive number"
+    if isinstance(n, (int, long, float, complex)):
+        if n < 0:
+            return "This is negative number"
+        elif n == 0:
+            return "This is zero"
         else:
-            print 'Input is not a number'
+            return "This is positive number"
+    else:
+        print 'Input is not a number'
         
-def remove_ext(filename):          # 3.3
+def remove_ext(filename):            # 3.3
     '''
     Remove the extension of a filename
     '''
     try:
-        x = filename.rfind('.')
+        index = filename.rfind('.')
     except AttributeError:
         print 'Input is not a filename'
     else:
-        if '.' not in filename:
+        if index == -1:
             print 'This file has been removed the extensions'
         else:
-            return filename[:x]
+            return filename[:index]
     
-def amazing_func(r):        # 3.4
-    '''
-    No description
-    '''
+def amazing_func(numbers):        # 3.4
     try:
-        enumerate(r)
+        for index, item in enumerate(numbers[2:]):
+            print index+1, item
     except TypeError:
         print 'Wrong input'
-    else:
-        for i,j in enumerate(r[2:]):
-            print i+1, j
 
 def check_month(month):         # 3.5
     '''
@@ -65,11 +49,9 @@ def check_month(month):         # 3.5
             'October 31', 'November 30', 'December 31'
     ]
     try:
-        result = months_days[month-1]
-    except (NameError, TypeError, IndexError):
+        return months_days[month-1]
+    except (TypeError, IndexError):
         print 'Input is not a month of year'
-    else:
-        return result
     
 def unique_chars(string):         # 3.6
     '''
@@ -82,29 +64,25 @@ def unique_chars(string):         # 3.6
     else:
         return [char for char in new_str if new_str.count(char) == 1]
 
-def divisible_of_5(range_):          # 3.7
+def divisible_of_5(numbers):          # 3.7
     '''
-    Return list of divisible numbers of 5 
+    Return list of numbers divisible by 5 
     '''
     try:
-        result = [num for num in range_ if num % 5 == 0]
+        return [num for num in numbers if num % 5 == 0]
     except (NameError, TypeError):
         print 'Input is not a list of numbers'
-    else:
-        return result
     
-def divisible_of_3_and_5(r):    # 3.8
+def divisible_of_3_and_5(numbers):    # 3.8
     '''
-    Return sum of divisible numbers of 3 and 5
+    Return sum of numbers divisible by 3 and 5 
     '''
     try:
-        lst = [num for num in r if num % 3 == 0 and num % 5 == 0]
+        return sum([num for num in numbers if num % 3 == 0 and num % 5 == 0])
     except:
         print 'Input is not a list of numbers'
-    else:
-        return sum(lst)
 
-def func_of_god():              # 3.9
+def func_of_god():                     # 3.9
     '''
     0 < a, b, c < 10
     Return list of [a,b,c] if a + b/c = 10
@@ -117,7 +95,7 @@ def is_prime(n):                # 3.10
     '''
     Return True if n is prime number
     '''
-    if not isinstance(n, (int)) or n < 2:
+    if not isinstance(n, int) or n < 2:
         return False
     else:
         from math import sqrt
@@ -144,36 +122,26 @@ def first_10_primes():
 
 def e_bill(count):
     # electricity bill per month
-    try:
-        count + 1
-    except:
-        print 'Input is not a number'
-    else:
-        bill = 0
-        costs = {50: 1230, 100: 1530, 'max': 1786}
-        if count < 0:
-            return bill
-        elif 0 <= count <= 50:
+    bill = 0
+    costs = {50: 1230, 100: 1530, 'max': 1786}
+    if isinstance(count, (int, float, long, complex)):
+        if 0 <= count <= 50:
             bill += count*costs[50]
-            return bill
         elif count <= 100:
             bill += 50*costs[50] + (count - 50)*costs[100]
-            return bill
-        else:
+        elif count > 100:
             bill += 50*costs[50] + 50*costs[100] + (count - 100)*costs['max']
-            return bill
+    else:
+        print 'Input is not a number'
+    return bill
 
 def e_bills(counts):
     # electricity bill of multiple months
     try:
-        bills = [e_bill(count) for count in counts]
+        return [e_bill(count) for count in counts]
     except:
         print 'Input is not a list of electricity bills'
-    else:
-        return bills
-    
-
-    
+        
     
 print last_bin_digits(99193939948)                  # 100 
 print check_num(-4)                                 # This is positive number

@@ -1,4 +1,5 @@
 import sys
 
-# check os platform
-print sys.platform
+def is_linux():
+    # Return True if os based on the Linux kernel's
+    return sys.platform.startswith('linux')

@@ -3,15 +3,12 @@ def e_bill(count):
     bill = 0
     if 0 <= count <= 50:
         bill += count*1230
-        return bill
     elif count <= 100:
         bill += 50*1230 + (count - 50)*1530
-        return bill
     elif count > 100:
         bill += 50*1230 + 50*1530 + (count - 100)*1786
-        return bill
-    else:
-        return bill
+    return bill
+
 
 def e_bills(months):
     # electricity bill of multiple months
